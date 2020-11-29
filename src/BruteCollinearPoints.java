@@ -17,7 +17,12 @@ public class BruteCollinearPoints {
                     Point rPoint = points[r];
                     for (int s = r + 1; s < points.length; s++) {
                         Point sPoint = points[s];
-                        if (pPoint.slopeTo(qPoint) != pPoint.slopeTo(rPoint) || pPoint.slopeTo(qPoint) != pPoint.slopeTo(sPoint)) {
+
+                        if (
+                            !this.areDifferentCollinearPoints(pPoint, qPoint, rPoint) ||
+                            !this.areDifferentCollinearPoints(pPoint, qPoint, sPoint) ||
+                            !this.areDifferentCollinearPoints(pPoint, rPoint, sPoint)
+                        ) {
                             continue;
                         }
 
@@ -29,15 +34,32 @@ public class BruteCollinearPoints {
                             this.segmentArray = newSegmentArray;
                         }
 
-                        Point[] currentPoints = new Point[] {pPoint, qPoint, rPoint, sPoint};
-                        Arrays.sort(currentPoints);
+                        Point[] currentPoints = new Point[]{pPoint, qPoint, rPoint, sPoint};
+                        LineSegment lineSegment = new LineSegment(currentPoints[0], currentPoints[3]);
 
-                        this.segmentArray[this.segmentCount] = new LineSegment(currentPoints[0], currentPoints[3]);
-                        this.segmentCount++;
+                        boolean exists = false;
+                        for (LineSegment segment : this.segmentArray) {
+                            if (segment == null) {
+                                continue;
+                            }
+                            if (segment.toString().equals(lineSegment.toString())) {
+                                exists = true;
+                            }
+                        }
+
+                        if (!exists) {
+                            this.segmentArray[this.segmentCount] = lineSegment;
+                            this.segmentCount++;
+                        }
                     }
                 }
             }
         }
+    }
+
+    private boolean areDifferentCollinearPoints(Point mainPoint, Point aPoint, Point bPoint) {
+        boolean arePointsIdentical = mainPoint.compareTo(aPoint) == 0 || mainPoint.compareTo(bPoint) == 0 || aPoint.compareTo(bPoint) == 0;
+        return !arePointsIdentical && mainPoint.slopeTo(aPoint) == mainPoint.slopeTo(bPoint);
     }
 
     public int numberOfSegments() {
