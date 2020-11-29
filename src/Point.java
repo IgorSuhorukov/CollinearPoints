@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.StdDraw;
 
+import java.util.Comparator;
+
 public class Point implements Comparable<Point> {
     private final int x;
     private final int y;
@@ -76,11 +78,52 @@ public class Point implements Comparable<Point> {
         return 0;
     }
 
-    public double slopeTo(Point that) {
-        // the slope between this point and that point
+    /**
+     * Compares two points by the slope they make with this point.
+     * The slope is defined as in the slopeTo() method.
+     *
+     * @return the Comparator that defines this ordering on points
+     */
+    public Comparator<Point> slopeOrder() {
+        return new BySlope(this);
     }
 
-    public Comparator<Point> slopeOrder() {
-        // compare two points by slopes they make with this point
+
+    /**
+     * Returns a string representation of this point.
+     * This method is provide for debugging;
+     * your program should not rely on the format of the string representation.
+     *
+     * @return a string representation of this point
+     */
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
+    private static class BySlope implements Comparator<Point>
+    {
+        private final Point point;
+
+        BySlope(Point point) {
+            this.point = point;
+        }
+
+        @Override
+        public int compare(Point point1, Point point2) {
+
+            double slope1 = this.point.slopeTo(point1);
+            double slope2 = this.point.slopeTo(point2);
+
+            if (slope1 < slope2) {
+                return -1;
+            }
+            if (slope1 > slope2) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
+    public static void main(String[] args) {
     }
 }

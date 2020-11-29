@@ -22,6 +22,18 @@ public class TestPoint {
     }
 
     @Test
+    public void testToString() {
+        Point point = new Point(1, 2);
+        assertEquals("(1, 2)", point.toString());
+
+        point = new Point(0, 0);
+        assertEquals("(0, 0)", point.toString());
+
+        point = new Point(13874, 32265);
+        assertEquals("(13874, 32265)", point.toString());
+    }
+
+    @Test
     public void testSlopeToWhenVerticalLine() {
         int x0 = 3;
         int y0 = 12;
@@ -95,5 +107,43 @@ public class TestPoint {
         point = new Point(12, 3);
         point2 = new Point(6, 3);
         assertEquals(1, point.compareTo(point2));
+    }
+
+    @Test
+    public void testSlopeOrder() {
+        Point point;
+        Point point1;
+        Point point2;
+        int result;
+
+        point = new Point(0, 0);
+        point1 = new Point(5, 7);
+        point2 = new Point(9, 3);
+        result = point.slopeOrder().compare(point1, point2);
+        assertEquals(-1, result);
+
+        point = new Point(0, 0);
+        point1 = new Point(0, 0);
+        point2 = new Point(0, 0);
+        result = point.slopeOrder().compare(point1, point2);
+        assertEquals(0, result);
+
+        point = new Point(0, 0);
+        point1 = new Point(9, 3);
+        point2 = new Point(9, 3);
+        result = point.slopeOrder().compare(point1, point2);
+        assertEquals(0, result);
+
+        point = new Point(0, 0);
+        point1 = new Point(3, 1);
+        point2 = new Point(9, 3);
+        result = point.slopeOrder().compare(point1, point2);
+        assertEquals(0, result);
+
+        point = new Point(0, 0);
+        point1 = new Point(12, 3);
+        point2 = new Point(12, 3);
+        result = point.slopeOrder().compare(point1, point2);
+        assertEquals(0, result);
     }
 }
