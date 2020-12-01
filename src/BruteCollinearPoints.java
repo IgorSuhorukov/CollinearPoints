@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class BruteCollinearPoints {
-    private LineSegment[] segmentArray = new LineSegment[1];
+    private LineSegment[] segmentArray = new LineSegment[4];
     private int segmentCount = 0;
 
     public BruteCollinearPoints(Point[] points) {
