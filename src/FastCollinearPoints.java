@@ -3,6 +3,7 @@ import java.util.Arrays;
 
 public class FastCollinearPoints {
     private LineSegment[] segmentArray = new LineSegment[1];
+    private final ArrayList<String> existingCollinearPointStrings = new ArrayList<>();
     private int segmentCount = 0;
 
     public FastCollinearPoints(Point[] points) {
@@ -10,8 +11,9 @@ public class FastCollinearPoints {
             throw new IllegalArgumentException();
         }
 
-        Point origin = points[0];
-        this.execute(points, origin);
+        for (Point point : points) {
+            this.execute(points, point);
+        }
     }
 
     private void execute(Point[] points, Point origin) {
@@ -24,19 +26,18 @@ public class FastCollinearPoints {
         Arrays.sort(slopes);
 
         ArrayList<Point> collinearPoints = new ArrayList<>();
-        ArrayList<String> existingCollinearPointStrings = new ArrayList<>();
         collinearPoints.add(origin);
 
         int slopesLength = slopes.length;
         for (int j = 0; j < slopesLength; j++) {
             Point currentPoint = points[j + 1];
 
-            if (existingCollinearPointStrings.contains(currentPoint.toString())) {
+            if (this.existingCollinearPointStrings.contains(currentPoint.toString())) {
                 continue;
             }
 
             if ((j != slopesLength - 1 && slopes[j] == slopes[j + 1]) || (j != 0 && slopes[j] == slopes[j - 1])) {
-                existingCollinearPointStrings.add(currentPoint.toString());
+                this.existingCollinearPointStrings.add(currentPoint.toString());
                 collinearPoints.add(currentPoint);
             } else {
                 collinearPoints = this.addCollinearPoints(collinearPoints, origin);

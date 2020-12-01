@@ -1,13 +1,14 @@
-import java.util.Arrays;
-
 public class BruteCollinearPoints {
-    private LineSegment[] segmentArray = new LineSegment[4];
-    private int segmentCount = 0;
+    private LineSegment[] segmentArray;
+    private int segmentCount;
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) {
             throw new IllegalArgumentException();
         }
+
+        this.segmentArray = new LineSegment[4];
+        this.segmentCount = 0;
 
         for (int p = 0; p < points.length; p++) {
             Point pPoint = points[p];
