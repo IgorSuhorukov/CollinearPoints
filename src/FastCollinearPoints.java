@@ -1,16 +1,15 @@
-import edu.princeton.cs.algs4.Alphabet;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FastCollinearPoints {
-    private final ArrayList<String> existingSegmentArrays = new ArrayList<>();
-    private ArrayList<LineSegment> segmentArray = new ArrayList<>();
+    private final ArrayList<LineSegment> segmentArray = new ArrayList<>();
 
     public FastCollinearPoints(Point[] points) {
         if (points == null) {
             throw new IllegalArgumentException();
         }
+
+        ArrayList<String> existingSegmentArrays = new ArrayList<>();
 
         for (Point originalPoint : points) {
             ArrayList<Point> pointList = new ArrayList<>();
@@ -25,7 +24,8 @@ public class FastCollinearPoints {
                     continue;
                 }
 
-                Point nextPoint = null;;
+                Point nextPoint = null;
+
                 if (i < points.length - 1 && points[i + 1] == originalPoint) {
                     if (i < points.length - 3 && i + 2 <= points.length - 1) {
                         nextPoint = points[i + 2];
@@ -64,10 +64,10 @@ public class FastCollinearPoints {
                 Arrays.sort(pointArr);
 
                 LineSegment lineSegment = new LineSegment(pointArr[0], pointArr[pointArr.length - 1]);
-                if (this.existingSegmentArrays.contains(lineSegment.toString())) {
+                if (existingSegmentArrays.contains(lineSegment.toString())) {
                     continue;
                 }
-                this.existingSegmentArrays.add(lineSegment.toString());
+                existingSegmentArrays.add(lineSegment.toString());
                 this.segmentArray.add(lineSegment);
             }
         }
