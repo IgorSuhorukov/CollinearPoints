@@ -20,10 +20,8 @@ public class TestFastCollinearPoints {
         assertEquals(0, fastCollinearPoints.numberOfSegments());
 
         fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(3, fastCollinearPoints.numberOfSegments());
-        assertEquals((new LineSegment(point1, point2)).toString(), fastCollinearPoints.segments()[0].toString());
-        assertEquals((new LineSegment(point2, point3)).toString(), fastCollinearPoints.segments()[1].toString());
-        assertEquals((new LineSegment(point3, point4)).toString(), fastCollinearPoints.segments()[2].toString());
+        assertEquals(1, fastCollinearPoints.numberOfSegments());
+        assertEquals("(1, 1) -> (4, 4)", fastCollinearPoints.segments()[0].toString());
     }
 
     @Test
@@ -38,7 +36,7 @@ public class TestFastCollinearPoints {
 
         fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
         assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertNull(fastCollinearPoints.segments()[0]);
+        assertEquals(0, fastCollinearPoints.segments().length);
     }
 
     @Test
@@ -50,7 +48,7 @@ public class TestFastCollinearPoints {
 
         FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
         assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertNull(fastCollinearPoints.segments()[0]);
+        assertEquals(0, fastCollinearPoints.segments().length);
     }
 
     @Test
@@ -62,7 +60,7 @@ public class TestFastCollinearPoints {
 
         FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
         assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertNull(fastCollinearPoints.segments()[0]);
+        assertEquals(0, fastCollinearPoints.segments().length);
     }
 
     @Test
@@ -74,7 +72,7 @@ public class TestFastCollinearPoints {
 
         FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
         assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertNull(fastCollinearPoints.segments()[0]);
+        assertEquals(0, fastCollinearPoints.segments().length);
     }
 
     @Test
@@ -86,7 +84,7 @@ public class TestFastCollinearPoints {
 
         FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
         assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertNull(fastCollinearPoints.segments()[0]);
+        assertEquals(0, fastCollinearPoints.segments().length);
     }
 
     @Test
@@ -99,10 +97,8 @@ public class TestFastCollinearPoints {
         Point point6 = new Point(7, 7);
 
         FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4, point5, point6});
-        assertEquals(3, fastCollinearPoints.numberOfSegments());
-        assertEquals((new LineSegment(point1, point3)).toString(), fastCollinearPoints.segments()[0].toString());
-        assertEquals((new LineSegment(point3, point5)).toString(), fastCollinearPoints.segments()[1].toString());
-        assertEquals((new LineSegment(point5, point6)).toString(), fastCollinearPoints.segments()[2].toString());
+        assertEquals(1, fastCollinearPoints.numberOfSegments());
+        assertEquals("(1, 1) -> (7, 7)", fastCollinearPoints.segments()[0].toString());
     }
 
     @Test
@@ -118,14 +114,9 @@ public class TestFastCollinearPoints {
 
         Point[] points = new Point[]{point1, point2, point3, point4, point5, point6, point7, point8};
         FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(points);
-        assertEquals(6, fastCollinearPoints.numberOfSegments());
-        assertEquals((new LineSegment(point1, point2)).toString(), fastCollinearPoints.segments()[0].toString());
-        assertEquals((new LineSegment(point2, point3)).toString(), fastCollinearPoints.segments()[1].toString());
-        assertEquals((new LineSegment(point3, point4)).toString(), fastCollinearPoints.segments()[2].toString());
-
-        assertEquals((new LineSegment(point5, point6)).toString(), fastCollinearPoints.segments()[0].toString());
-        assertEquals((new LineSegment(point6, point7)).toString(), fastCollinearPoints.segments()[1].toString());
-        assertEquals((new LineSegment(point7, point8)).toString(), fastCollinearPoints.segments()[2].toString());
+        assertEquals(2, fastCollinearPoints.numberOfSegments());
+        assertEquals("(1, 1) -> (4, 4)", fastCollinearPoints.segments()[0].toString());
+        assertEquals("(1, 3) -> (4, 12)", fastCollinearPoints.segments()[1].toString());
     }
 
     @Test
@@ -147,15 +138,25 @@ public class TestFastCollinearPoints {
         Point[] points = new Point[]{pointA1, pointA2, pointA3, pointA4, pointA5, pointA6, pointB1, pointB2, pointB3, pointB4, pointB5, pointB6};
         FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(points);
         assertEquals(2, fastCollinearPoints.numberOfSegments());
-        assertEquals((new LineSegment(pointA1, pointA2)).toString(), fastCollinearPoints.segments()[0].toString());
-        assertEquals((new LineSegment(pointA2, pointA3)).toString(), fastCollinearPoints.segments()[1].toString());
-        assertEquals((new LineSegment(pointA3, pointA4)).toString(), fastCollinearPoints.segments()[2].toString());
-        assertEquals((new LineSegment(pointA4, pointA5)).toString(), fastCollinearPoints.segments()[3].toString());
-        assertEquals((new LineSegment(pointA5, pointA6)).toString(), fastCollinearPoints.segments()[4].toString());
-        assertEquals((new LineSegment(pointB1, pointB2)).toString(), fastCollinearPoints.segments()[5].toString());
-        assertEquals((new LineSegment(pointB2, pointB3)).toString(), fastCollinearPoints.segments()[6].toString());
-        assertEquals((new LineSegment(pointB3, pointB4)).toString(), fastCollinearPoints.segments()[7].toString());
-        assertEquals((new LineSegment(pointB4, pointB5)).toString(), fastCollinearPoints.segments()[8].toString());
-        assertEquals((new LineSegment(pointB5, pointB6)).toString(), fastCollinearPoints.segments()[9].toString());
+        assertEquals("(1, 1) -> (6, 6)", fastCollinearPoints.segments()[0].toString());
+        assertEquals("(1, 3) -> (6, 18)", fastCollinearPoints.segments()[1].toString());
+    }
+
+    @Test
+    public void testFindLineSegmentsCase10() {
+        Point point1 = new Point(10000, 0);
+        Point point2 = new Point(0, 10000);
+        Point point3 = new Point(3000, 7000);
+        Point point4 = new Point(7000, 3000);
+        Point point5 = new Point(20000, 21000);
+        Point point6 = new Point(3000, 4000);
+        Point point7 = new Point(14000, 15000);
+        Point point8 = new Point(6000, 7000);
+
+        Point[] points = new Point[] {point1, point2, point3, point4, point5, point6, point7, point8};
+        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(points);
+        assertEquals(2, fastCollinearPoints.numberOfSegments());
+        assertEquals("(10000, 0) -> (0, 10000)", fastCollinearPoints.segments()[0].toString());
+        assertEquals("(3000, 4000) -> (20000, 21000)", fastCollinearPoints.segments()[1].toString());
     }
 }
