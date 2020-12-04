@@ -1,14 +1,13 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class BruteCollinearPoints {
-    private LineSegment[] segmentArray;
-    private int segmentCount;
+    private ArrayList<LineSegment> segmentArray = new ArrayList<>();
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) {
             throw new IllegalArgumentException();
         }
-
-        this.segmentArray = new LineSegment[4];
-        this.segmentCount = 0;
 
         for (int p = 0; p < points.length; p++) {
             Point pPoint = points[p];
@@ -27,15 +26,8 @@ public class BruteCollinearPoints {
                             continue;
                         }
 
-                        if (this.segmentArray.length <= this.segmentCount) {
-                            LineSegment[] newSegmentArray = new LineSegment[this.segmentCount * 2];
-                            for (int i = 0; i < this.segmentArray.length; i++) {
-                                newSegmentArray[i] = this.segmentArray[i];
-                            }
-                            this.segmentArray = newSegmentArray;
-                        }
-
                         Point[] currentPoints = new Point[]{pPoint, qPoint, rPoint, sPoint};
+                        Arrays.sort(currentPoints);
                         LineSegment lineSegment = new LineSegment(currentPoints[0], currentPoints[3]);
 
                         boolean exists = false;
@@ -49,8 +41,7 @@ public class BruteCollinearPoints {
                         }
 
                         if (!exists) {
-                            this.segmentArray[this.segmentCount] = lineSegment;
-                            this.segmentCount++;
+                            this.segmentArray.add(lineSegment);
                         }
                     }
                 }
@@ -64,10 +55,10 @@ public class BruteCollinearPoints {
     }
 
     public int numberOfSegments() {
-        return this.segmentCount;
+        return this.segmentArray.size();
     }
 
     public LineSegment[] segments() {
-        return this.segmentArray;
+        return this.segmentArray.toArray(new LineSegment[this.segmentArray.size()]);
     }
 }
