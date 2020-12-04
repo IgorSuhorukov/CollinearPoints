@@ -12,6 +12,7 @@ public class FastCollinearPoints {
         ArrayList<String> existingSegmentArrays = new ArrayList<>();
 
         for (Point originalPoint : points) {
+            double slope = -1.0;
             ArrayList<Point> pointList = new ArrayList<>();
             ArrayList<String> pointStringList = new ArrayList<>();
 
@@ -19,6 +20,7 @@ public class FastCollinearPoints {
             System.arraycopy(points, 0, newPoints, 0, points.length);
 
             Arrays.sort(newPoints, originalPoint.slopeOrder());
+            pointStringList.add(originalPoint.toString());
             pointList.add(originalPoint);
 
             for (int i = 0; i < newPoints.length; i++) {
@@ -50,7 +52,13 @@ public class FastCollinearPoints {
                     }
                 }
 
-                if (nextPoint != null && !pointStringList.contains(currentPoint.toString()) && originalPoint.slopeTo(currentPoint) == originalPoint.slopeTo(nextPoint)) {
+                if (
+                    nextPoint != null &&
+                    !pointStringList.contains(currentPoint.toString()) &&
+                    (slope == -1.0 || originalPoint.slopeTo(currentPoint) == slope) &&
+                    originalPoint.slopeTo(currentPoint) == originalPoint.slopeTo(nextPoint)
+                ) {
+                    slope = originalPoint.slopeTo(currentPoint);
                     pointStringList.add(currentPoint.toString());
                     pointList.add(currentPoint);
                 } else {
@@ -65,7 +73,13 @@ public class FastCollinearPoints {
                         }
                     }
 
-                    if (previousPoint != null && !pointStringList.contains(currentPoint.toString()) && originalPoint.slopeTo(currentPoint) == originalPoint.slopeTo(previousPoint)) {
+                    if (
+                        previousPoint != null &&
+                        !pointStringList.contains(currentPoint.toString()) &&
+                        (slope == -1.0 || originalPoint.slopeTo(currentPoint) == slope) &&
+                        originalPoint.slopeTo(currentPoint) == originalPoint.slopeTo(previousPoint)
+                    ) {
+                        slope = originalPoint.slopeTo(currentPoint);
                         pointStringList.add(currentPoint.toString());
                         pointList.add(currentPoint);
                     }

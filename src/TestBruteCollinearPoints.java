@@ -153,4 +153,19 @@ public class TestBruteCollinearPoints {
         assertEquals("(11420, 1845) -> (11420, 19875)", bruteCollinearPoints.segments()[4].toString());
     }
 
+    @Test
+    public void testFindLineSegmentsCase12() {
+        Point[] points = new Point[] {
+                new Point(6, 5),
+                new Point(6, 9),
+                new Point(6, 3),
+                new Point(9, 3),
+                new Point(7, 3),
+        };
+
+        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(points);
+        assertEquals(0, fastCollinearPoints.numberOfSegments());
+        assertEquals(0, fastCollinearPoints.segments().length);
+    }
+
 }

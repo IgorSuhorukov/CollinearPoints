@@ -177,4 +177,19 @@ public class TestFastCollinearPoints {
         assertEquals("(3075, 4346) -> (16053, 4346)", fastCollinearPoints.segments()[3].toString());
         assertEquals("(3744, 14809) -> (19860, 14809)", fastCollinearPoints.segments()[4].toString());
     }
+
+    @Test
+    public void testFindLineSegmentsCase12() {
+        Point[] points = new Point[] {
+            new Point(6, 5),
+            new Point(6, 9),
+            new Point(6, 3),
+            new Point(9, 3),
+            new Point(7, 3),
+        };
+
+        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(points);
+        assertEquals(0, fastCollinearPoints.numberOfSegments());
+        assertEquals(0, fastCollinearPoints.segments().length);
+    }
 }
