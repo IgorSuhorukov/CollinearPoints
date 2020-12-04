@@ -9,6 +9,16 @@ public class BruteCollinearPoints {
             throw new IllegalArgumentException();
         }
 
+        Point[] newPoints = new Point[points.length];
+        System.arraycopy(points, 0, newPoints, 0, points.length);
+        Arrays.sort(newPoints);
+
+        for (int q = 0; q < newPoints.length - 1; q++) {
+            if (newPoints[q].toString().equals(newPoints[q + 1].toString())) {
+                throw new IllegalArgumentException();
+            }
+        }
+
         for (int p = 0; p < points.length; p++) {
             Point pPoint = points[p];
             for (int q = p + 1; q < points.length; q++) {
@@ -17,6 +27,10 @@ public class BruteCollinearPoints {
                     Point rPoint = points[r];
                     for (int s = r + 1; s < points.length; s++) {
                         Point sPoint = points[s];
+
+                        if (sPoint == null || pPoint == null || qPoint == null || rPoint == null) {
+                            throw new IllegalArgumentException();
+                        }
 
                         if (
                             !this.areDifferentCollinearPoints(pPoint, qPoint, rPoint) ||

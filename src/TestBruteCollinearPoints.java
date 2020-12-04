@@ -24,19 +24,14 @@ public class TestBruteCollinearPoints {
         assertEquals((new LineSegment(point1, point4)).toString(), bruteCollinearPoints.segments()[0].toString());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase2() {
         Point point1 = new Point(1, 1);
         Point point2 = new Point(1, 1);
         Point point3 = new Point(1, 1);
         Point point4 = new Point(1, 1);
 
-        BruteCollinearPoints bruteCollinearPoints = new BruteCollinearPoints(new Point[]{point1, point2, point3});
-        assertEquals(0, bruteCollinearPoints.numberOfSegments());
-
-        bruteCollinearPoints = new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, bruteCollinearPoints.numberOfSegments());
-        assertNull(bruteCollinearPoints.segments()[0]);
+        new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
     @Test
@@ -44,50 +39,43 @@ public class TestBruteCollinearPoints {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(3, 4);
         Point point3 = new Point(5, 6);
-        Point point4 = new Point(5, 6);
 
-        BruteCollinearPoints bruteCollinearPoints = new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
+        BruteCollinearPoints bruteCollinearPoints = new BruteCollinearPoints(new Point[]{point1, point2, point3});
         assertEquals(0, bruteCollinearPoints.numberOfSegments());
-        assertNull(bruteCollinearPoints.segments()[0]);
+        assertEquals(0, bruteCollinearPoints.segments().length);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase4() {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(3, 4);
         Point point3 = new Point(3, 4);
         Point point4 = new Point(5, 6);
 
-        BruteCollinearPoints bruteCollinearPoints = new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, bruteCollinearPoints.numberOfSegments());
-        assertNull(bruteCollinearPoints.segments()[0]);
+        new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase5() {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(1, 2);
         Point point3 = new Point(3, 4);
         Point point4 = new Point(5, 6);
 
-        BruteCollinearPoints bruteCollinearPoints = new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, bruteCollinearPoints.numberOfSegments());
-        assertNull(bruteCollinearPoints.segments()[0]);
+        new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase6() {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(1, 2);
         Point point3 = new Point(5, 6);
         Point point4 = new Point(5, 6);
 
-        BruteCollinearPoints bruteCollinearPoints = new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, bruteCollinearPoints.numberOfSegments());
-        assertNull(bruteCollinearPoints.segments()[0]);
+        new BruteCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase7() {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(1, 2);
@@ -96,9 +84,7 @@ public class TestBruteCollinearPoints {
         Point point5 = new Point(3, 4);
         Point point6 = new Point(7, 8);
 
-        BruteCollinearPoints bruteCollinearPoints = new BruteCollinearPoints(new Point[]{point1, point2, point3, point4, point5, point6});
-        assertEquals(1, bruteCollinearPoints.numberOfSegments());
-        assertEquals((new LineSegment(point1, point6)).toString(), bruteCollinearPoints.segments()[0].toString());
+        new BruteCollinearPoints(new Point[]{point1, point2, point3, point4, point5, point6});
     }
 
     @Test

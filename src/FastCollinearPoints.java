@@ -28,15 +28,25 @@ public class FastCollinearPoints {
                     continue;
                 }
 
+                if (originalPoint.toString().equals(currentPoint.toString())) {
+                    throw new IllegalArgumentException();
+                }
+
                 Point nextPoint = null;
 
                 if (i < newPoints.length - 1 && newPoints[i + 1] == originalPoint) {
                     if (i < newPoints.length - 3 && i + 2 <= newPoints.length - 1) {
                         nextPoint = newPoints[i + 2];
+                        if (currentPoint.toString().equals(nextPoint.toString())) {
+                            throw new IllegalArgumentException();
+                        }
                     }
                 } else {
                     if (i < newPoints.length - 1) {
                         nextPoint = newPoints[i + 1];
+                        if (currentPoint.toString().equals(nextPoint.toString())) {
+                            throw new IllegalArgumentException();
+                        }
                     }
                 }
 

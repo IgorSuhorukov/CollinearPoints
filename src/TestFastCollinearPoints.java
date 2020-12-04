@@ -23,70 +23,57 @@ public class TestFastCollinearPoints {
         assertEquals("(1, 1) -> (4, 4)", fastCollinearPoints.segments()[0].toString());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase2() {
         Point point1 = new Point(1, 1);
         Point point2 = new Point(1, 1);
         Point point3 = new Point(1, 1);
         Point point4 = new Point(1, 1);
 
-        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3});
-        assertEquals(0, fastCollinearPoints.numberOfSegments());
-
-        fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertEquals(0, fastCollinearPoints.segments().length);
+        new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase3() {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(3, 4);
         Point point3 = new Point(5, 6);
         Point point4 = new Point(5, 6);
 
-        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertEquals(0, fastCollinearPoints.segments().length);
+        new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase4() {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(3, 4);
         Point point3 = new Point(3, 4);
         Point point4 = new Point(5, 6);
 
-        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertEquals(0, fastCollinearPoints.segments().length);
+        new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase5() {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(1, 2);
         Point point3 = new Point(3, 4);
         Point point4 = new Point(5, 6);
 
-        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertEquals(0, fastCollinearPoints.segments().length);
+        new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase6() {
         Point point1 = new Point(1, 2);
         Point point2 = new Point(1, 2);
         Point point3 = new Point(5, 6);
         Point point4 = new Point(5, 6);
 
-        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
-        assertEquals(0, fastCollinearPoints.numberOfSegments());
-        assertEquals(0, fastCollinearPoints.segments().length);
+        new FastCollinearPoints(new Point[]{point1, point2, point3, point4});
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFindLineSegmentsCase7() {
         Point point1 = new Point(1, 1);
         Point point2 = new Point(1, 1);
@@ -95,9 +82,7 @@ public class TestFastCollinearPoints {
         Point point5 = new Point(3, 3);
         Point point6 = new Point(7, 7);
 
-        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(new Point[]{point1, point2, point3, point4, point5, point6});
-        assertEquals(1, fastCollinearPoints.numberOfSegments());
-        assertEquals("(1, 1) -> (7, 7)", fastCollinearPoints.segments()[0].toString());
+        new FastCollinearPoints(new Point[]{point1, point2, point3, point4, point5, point6});
     }
 
     @Test
