@@ -158,4 +158,38 @@ public class TestFastCollinearPoints {
         assertEquals("(10000, 0) -> (0, 10000)", fastCollinearPoints.segments()[0].toString());
         assertEquals("(3000, 4000) -> (20000, 21000)", fastCollinearPoints.segments()[1].toString());
     }
+
+    @Test
+    public void testFindLineSegmentsCase11() {
+        Point[] points = new Point[] {
+            new Point(19809, 11135),
+            new Point(10540, 10965),
+            new Point(8091, 10965),
+            new Point(20714, 20774),
+            new Point(3075,  4346),
+            new Point(14198, 11135),
+            new Point(20530, 10965),
+            new Point(17298, 11135),
+            new Point(8368, 20774),
+            new Point(19860, 14809),
+            new Point(18237, 20774),
+            new Point(17276, 14809),
+            new Point(3744, 14809),
+            new Point(15339,  4346),
+            new Point(10583,  4346),
+            new Point(14927, 14809),
+            new Point(3808, 10965),
+            new Point(16053,  4346),
+            new Point(1368, 11135),
+            new Point(9347, 20774)
+        };
+
+        FastCollinearPoints fastCollinearPoints = new FastCollinearPoints(points);
+        assertEquals(5, fastCollinearPoints.numberOfSegments());
+        assertEquals("(1368, 11135) -> (19809, 11135)", fastCollinearPoints.segments()[0].toString());
+        assertEquals("(3808, 10965) -> (20530, 10965)", fastCollinearPoints.segments()[1].toString());
+        assertEquals("(8368, 20774) -> (20714, 20774)", fastCollinearPoints.segments()[2].toString());
+        assertEquals("(3075, 4346) -> (16053, 4346)", fastCollinearPoints.segments()[3].toString());
+        assertEquals("(3744, 14809) -> (19860, 14809)", fastCollinearPoints.segments()[4].toString());
+    }
 }

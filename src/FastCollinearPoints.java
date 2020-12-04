@@ -14,11 +14,15 @@ public class FastCollinearPoints {
         for (Point originalPoint : points) {
             ArrayList<Point> pointList = new ArrayList<>();
             ArrayList<String> pointStringList = new ArrayList<>();
-            Arrays.sort(points, originalPoint.slopeOrder());
+
+            Point[] newPoints = new Point[points.length];
+            System.arraycopy(points, 0, newPoints, 0, points.length);
+
+            Arrays.sort(newPoints, originalPoint.slopeOrder());
             pointList.add(originalPoint);
 
-            for (int i = 0; i < points.length; i++) {
-                Point currentPoint = points[i];
+            for (int i = 0; i < newPoints.length; i++) {
+                Point currentPoint = newPoints[i];
 
                 if (currentPoint == originalPoint) {
                     continue;
@@ -26,13 +30,13 @@ public class FastCollinearPoints {
 
                 Point nextPoint = null;
 
-                if (i < points.length - 1 && points[i + 1] == originalPoint) {
-                    if (i < points.length - 3 && i + 2 <= points.length - 1) {
-                        nextPoint = points[i + 2];
+                if (i < newPoints.length - 1 && newPoints[i + 1] == originalPoint) {
+                    if (i < newPoints.length - 3 && i + 2 <= newPoints.length - 1) {
+                        nextPoint = newPoints[i + 2];
                     }
                 } else {
-                    if (i < points.length - 1) {
-                        nextPoint = points[i + 1];
+                    if (i < newPoints.length - 1) {
+                        nextPoint = newPoints[i + 1];
                     }
                 }
 
@@ -42,12 +46,12 @@ public class FastCollinearPoints {
                 } else {
                     Point previousPoint = null;
                     if (i != 0) {
-                        if (points[i - 1] == originalPoint) {
+                        if (newPoints[i - 1] == originalPoint) {
                             if (i - 2 >= 0) {
-                                previousPoint = points[i - 2];
+                                previousPoint = newPoints[i - 2];
                             }
                         } else {
-                            previousPoint = points[i - 1];
+                            previousPoint = newPoints[i - 1];
                         }
                     }
 
